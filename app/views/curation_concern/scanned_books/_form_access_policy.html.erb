@@ -1,0 +1,15 @@
+<fieldset id="set-license">
+  <legend>Choose Access and Use Boilerplate</legend>
+  <%= f.input :access_policy,
+    as: :select,
+    collection: Sufia.config.access_policies,
+    input_html: { class: 'form-control' },
+    label: 'Access Policy'
+  %>
+  <%= f.input :use_and_reproduction,
+    as: :select,
+    collection: Sufia.config.use_and_reproduction,
+    input_html: { class: 'form-control' },
+    label: 'Use and Reproduction'
+  %>
+</fieldset>
