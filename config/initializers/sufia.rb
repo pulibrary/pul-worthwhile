@@ -27,6 +27,18 @@ Sufia.config do |config|
 
   config.cc_licenses_reverse = Hash[*config.cc_licenses.to_a.flatten.reverse]
 
+  config.access_policies = {
+    'Marquand' => 'Do you want a jelly baby?',
+    'Rare Books and Special Collections' => "Don't be sad Grace.",
+    'Mendel Music Library' => "You'll do great things."
+  }
+
+  config.use_and_reproduction = {
+    'Marquand' => 'Jamie, remind me to give you a lesson in tying knots, sometime.',
+    'Rare Books and Special Collections' => 'This thing is smaller on the inside than it is on the outside.',
+    'Mendel Music Library' => 'Life depends on change and renewal.'
+  }
+
   config.resource_types = {
     "Article" => "Article",
     "Audio" => "Audio",

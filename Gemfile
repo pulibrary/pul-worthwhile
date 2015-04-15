@@ -52,3 +52,7 @@ group :development, :test do
   gem "rspec-rails"
   gem "jettywrapper"
 end
+
+group :test do
+  gem "capybara"
+end
