@@ -98,7 +98,6 @@ describe ScannedBook do
       expect(subject.date_created.first).to eq("1734-2012")
       expect(subject.source_metadata).to eq(fixture('pulfa-AC123_c00004.xml').read)
     end
-
   end
 
   describe "With a Voyager ID" do
@@ -128,7 +127,6 @@ describe ScannedBook do
       expect(subject.publisher).to eq(["Fake Publisher"])
       expect(subject.source_metadata).to eq(fixture('voyager-2028405.xml').read)
     end
-
   end
 
   # it "Validates the ID as either a Pulfa or Voyager ID" do
