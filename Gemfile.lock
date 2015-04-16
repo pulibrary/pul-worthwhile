@@ -127,6 +127,8 @@ GEM
       sass (>= 3.2.19)
     breadcrumbs_on_rails (2.3.0)
     builder (3.2.2)
+    byebug (4.0.5)
+      columnize (= 0.9.0)
     cancancan (1.10.1)
     capybara (2.4.4)
       mime-types (>= 1.16)
@@ -148,6 +150,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.9.1.1)
+    columnize (0.9.0)
     daemons (1.2.2)
     deprecation (0.2.2)
       activesupport
@@ -170,6 +173,11 @@ GEM
     erubis (2.7.0)
     execjs (2.5.2)
     extlib (0.9.16)
+    factory_girl (4.5.0)
+      activesupport (>= 3.0.0)
+    factory_girl_rails (4.5.0)
+      factory_girl (~> 4.5.0)
+      railties (>= 3.0.0)
     faraday (0.9.1)
       multipart-post (>= 1.2, < 3)
     ffi (1.9.8)
@@ -512,10 +520,13 @@ PLATFORMS
 
 DEPENDENCIES
   active-fedora!
+  byebug
   capybara
   coffee-rails (~> 4.0.0)
   devise
   devise-guests (~> 0.3)
+  factory_girl
+  factory_girl_rails
   hydra-head!
   jbuilder (~> 2.0)
   jettywrapper
