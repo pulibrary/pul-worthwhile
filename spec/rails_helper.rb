@@ -57,3 +57,8 @@ RSpec.configure do |config|
   config.include Devise::TestHelpers, type: :controller
   config.include Devise::TestHelpers, type: :view
 end
+
+def fixture(file)
+  File.open(File.join(File.dirname(__FILE__), 'fixtures', file), 'rb')
+end
+

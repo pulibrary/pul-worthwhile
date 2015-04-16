@@ -14,7 +14,7 @@ RSpec.describe "ScannedBooksController", type: :request do
     expect(response).to render_template('curation_concern/scanned_books/new')
     valid_params = {
       title: ["My Book"],
-      src_metadata_id: "123456",
+      source_metadata_id: "123456",
       access_policy: "something", 
       use_and_reproduction: "something else"
     }

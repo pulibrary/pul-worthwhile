@@ -56,6 +56,14 @@ GIT
       hydra-core (= 9.0.0.rc2)
       rails (>= 3.2.6)
 
+GIT
+  remote: git://github.com/pulibrary/pul_metadata_services.git
+  revision: 71d537910bb62b0e91993362095bdd60b6d84e93
+  specs:
+    pul_metadata_services (0.0.1)
+      marc
+      rdf
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -281,6 +289,9 @@ GEM
       carrierwave (>= 0.5.8)
       foreigner (>= 0.9.1)
       rails (>= 3.2.0)
+    marc (1.0.0)
+      scrub_rb (>= 1.0.1, < 2)
+      unf
     memoist (0.12.0)
     mime-types (2.4.3)
     mini_magick (4.2.1)
@@ -430,6 +441,7 @@ GEM
       sass (~> 3.2.2)
       sprockets (~> 2.8, < 3.0)
       sprockets-rails (~> 2.0)
+    scrub_rb (1.0.1)
     sdoc (0.4.1)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
@@ -507,6 +519,9 @@ GEM
     uglifier (2.7.1)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
+    unf (0.1.4)
+      unf_ext
+    unf_ext (0.0.6)
     vegas (0.1.11)
       rack (>= 1.0.0)
     warden (1.2.3)
@@ -525,12 +540,12 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   devise
   devise-guests (~> 0.3)
-  factory_girl
   factory_girl_rails
   hydra-head!
   jbuilder (~> 2.0)
   jettywrapper
   jquery-rails
+  pul_metadata_services!
   rails (= 4.1.8)
   rsolr (~> 1.0.6)
   rspec-rails

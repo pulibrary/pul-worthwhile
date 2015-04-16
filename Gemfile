@@ -13,7 +13,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer',  platforms: :ruby
-
+gem 'pul_metadata_services', github:'pulibrary/pul_metadata_services'
 
 gem 'hydra-head', github:"projecthydra/hydra-head", :tag => 'v9.0.0.rc2'
 gem 'active-fedora', github:"projecthydra/active_fedora", :tag => 'v9.0.0.rc2'
@@ -48,11 +48,11 @@ gem 'spring',        group: :development
 gem "rsolr", "~> 1.0.6"
 gem "devise"
 gem "devise-guests", "~> 0.3"
+
 group :development, :test do
   gem "rspec-rails"
   gem "jettywrapper"
   gem "byebug"
-  gem "factory_girl"
   gem "factory_girl_rails"
 end
 
