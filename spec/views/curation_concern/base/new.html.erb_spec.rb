@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'curation_concern/scanned_books/new.html.erb', type: :view do
   input_ids = [
-    'scanned_book_source_metadata_id',
+    'scanned_book_source_metadata_identifier',
     'scanned_book_portion_note',
     'scanned_book_description',
     'scanned_book_access_policy',

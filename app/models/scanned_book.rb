@@ -9,10 +9,10 @@ class ScannedBook < ActiveFedora::Base
   property :description, predicate: ::RDF::URI.new(::RDF::DC.abstract), multiple: false
   property :access_policy, predicate: ::RDF::URI.new(::RDF::DC.accessRights), multiple: false
   property :use_and_reproduction, predicate: ::RDF::URI.new(::RDF::DC.rights), multiple: false
-  property :source_metadata_id, predicate: ::RDF::URI.new('http://library.princeton.edu/terms/metadata_id'), multiple: false
+  property :source_metadata_identifier, predicate: ::RDF::URI.new('http://library.princeton.edu/terms/metadata_id'), multiple: false
   property :source_metadata, predicate: ::RDF::URI.new('http://library.princeton.edu/terms/source_metadata'), multiple: false
 
-  validates_presence_of :source_metadata_id,  message: 'You must provide a source metadata id.'
+  validates_presence_of :source_metadata_identifier,  message: 'You must provide a source metadata id.'
   validates_presence_of :access_policy,  message: 'You must choose an Access Policy statement.'
   validates_presence_of :use_and_reproduction,  message: 'You must provide a use statement.'
 
@@ -44,7 +44,7 @@ class ScannedBook < ActiveFedora::Base
   end
 
   def retrieve_from_pulfa
-    response = pulfa_connection.get(source_metadata_id.gsub('_','/')+".xml?scope=record" )
+    response = pulfa_connection.get(source_metadata_identifier.gsub('_','/')+".xml?scope=record" )
     response.body
   end
 
@@ -57,7 +57,7 @@ class ScannedBook < ActiveFedora::Base
   end
 
   def retrieve_from_bibdata
-    response = bibdata_connection.get(source_metadata_id)
+    response = bibdata_connection.get(source_metadata_identifier)
     response.body
   end
 
@@ -69,7 +69,7 @@ class ScannedBook < ActiveFedora::Base
 
   # Applies relevant metadata from external systems
   def apply_external_metadata
-    #if self.source_metadata_id.to_i.is_a? Integer
+    #if self.source_metadata_identifier.to_i.is_a? Integer
     if is_bibdata?
       apply_bibdata
     else
@@ -81,7 +81,7 @@ class ScannedBook < ActiveFedora::Base
 
   # http://stackoverflow.com/questions/1235863/test-if-a-string-is-basically-an-integer-in-quotes-using-ruby
   def is_bibdata?
-    /\A[-+]?\d+\z/ === self.source_metadata_id
+    /\A[-+]?\d+\z/ === self.source_metadata_identifier
   end
 
 end

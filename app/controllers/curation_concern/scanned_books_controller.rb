@@ -6,8 +6,10 @@ class CurationConcern::ScannedBooksController < ApplicationController
   include PulCurationConcernController
   set_curation_concern_type ScannedBook
 
+
   def update
     if actor.update(refresh_metadata: !params[:refresh_metadata].nil? && params[:refresh_metadata])
+      byebug
       after_update_reponse
     else
       setup_form

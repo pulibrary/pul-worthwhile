@@ -6,7 +6,7 @@ describe ScannedBook do
 
   let(:subject) {
     s = ScannedBook.new
-    s.source_metadata_id  = "12345"
+    s.source_metadata_identifier  = "12345"
     s.access_policy = "Policy"
     s.use_and_reproduction = "Statement"
     s
@@ -28,14 +28,14 @@ describe ScannedBook do
   describe 'has source metadata id' do
     it "should let me set a metadata id" do
       id = "12345"
-      subject.source_metadata_id = id
+      subject.source_metadata_identifier = id
       expect { subject.save }.to_not raise_error
       subject.reload
-      expect(subject.source_metadata_id).to eq id
+      expect(subject.source_metadata_identifier).to eq id
     end
 
     it "should require me to set a metadata id" do
-      subject.source_metadata_id = nil
+      subject.source_metadata_identifier = nil
       expect(subject.valid?).to be_falsey
     end
   end
@@ -81,7 +81,7 @@ describe ScannedBook do
       stubbed_connection = Faraday.new do |builder|
         builder.adapter :test, stubbed_requests
       end
-      subject.source_metadata_id = 'AC123_c00004'
+      subject.source_metadata_identifier = 'AC123_c00004'
       allow(subject).to receive(:pulfa_connection).and_return(stubbed_connection)
     end
     
@@ -110,7 +110,7 @@ describe ScannedBook do
       stubbed_connection = Faraday.new do |builder|
         builder.adapter :test, stubbed_requests
       end
-      subject.source_metadata_id = "2028405"
+      subject.source_metadata_identifier = "2028405"
       allow(subject).to receive(:bibdata_connection).and_return(stubbed_connection)
     end
 
