@@ -6,11 +6,16 @@ class CurationConcern::ScannedBooksController < ApplicationController
   include PulCurationConcernController
   set_curation_concern_type ScannedBook
 
-
   def update
     if actor.update(refresh_metadata: !params[:refresh_metadata].nil? && params[:refresh_metadata])
-      byebug
-      after_update_reponse
+
+      # FIXME: The after_update_reponse method causes an error that is difficult
+      #   to trace. The method's code is pasted here until the eerror is fixed.
+      if actor.visibility_changed?
+        redirect_to confirm_curation_concern_permission_path(curation_concern)
+      else
+        respond_with([:curation_concern, curation_concern])
+      end
     else
       setup_form
       respond_with([:curation_concern, curation_concern]) do |wants|
@@ -18,5 +23,4 @@ class CurationConcern::ScannedBooksController < ApplicationController
       end
     end
   end
-
 end

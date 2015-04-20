@@ -1,6 +1,5 @@
 require 'rails_helper'
 
-
 RSpec.describe "ScannedBooksController", type: :request do
 
   let(:user) { FactoryGirl.create(:user) }
@@ -29,21 +28,17 @@ RSpec.describe "ScannedBooksController", type: :request do
     expect(response.body).to include("<h1>My Book")
   end
 
-  # it "User edits a scanned book" do
+  it "User edits a scanned book" do
 
-  #   new_params = {
-  #     title: ["New Title"],
-  #     source_metadata_identifier: "1234567",
-  #     access_policy: "new policy", 
-  #     use_and_reproduction: "new use"
-  #   }
-  #   polymorphic_path [:curation_concern, scanned_book]
+    new_params = {
+      title: ["New Title"],
+      source_metadata_identifier: "1234567",
+      access_policy: "new policy", 
+      use_and_reproduction: "new use"
+    }
+    polymorphic_path [:curation_concern, scanned_book]
 
-  #   post "/concern/scanned_books", id: scanned_book.id, scanned_book: new_params
-  #   follow_redirect!
-  #   byebug
-  #   # expect(response).to redirect_to([:curation_concern, assigns(:curation_concern)])
-  #   # follow_redirect!
-
-  # end
+    post "/concern/scanned_books", id: scanned_book.id, scanned_book: new_params
+    follow_redirect!
+  end
 end
