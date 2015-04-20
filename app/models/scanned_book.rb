@@ -39,7 +39,12 @@ class ScannedBook < ActiveFedora::Base
   #  * extracts title, creator, date, and publisher from the MARC and sets those fields accordingly
   def apply_bibdata
     marc_source = retrieve_from_bibdata
-    self.source_metadata = marc_source
+    begin
+      self.source_metadata = marc_source
+    rescue => e
+      logger.error("Record ID #{self.source_metadata_id} is malformed. Error:")
+      logger.error("#{e.class}: #{e.message}")
+    end
     marc_record = ScannedBook.negotiate_record(marc_source)
     self.title = ScannedBook.title_from_marc(marc_record)
     self.creator = ScannedBook.creator_from_marc(marc_record)
@@ -62,6 +67,7 @@ class ScannedBook < ActiveFedora::Base
 
   def retrieve_from_bibdata
     response = bibdata_connection.get(source_metadata_id)
+    logger.info("Fetching #{source_metadata_id}")
     response.body
   end
 
