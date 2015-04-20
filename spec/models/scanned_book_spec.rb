@@ -129,7 +129,13 @@ describe ScannedBook do
     end
   end
 
-  # it "Validates the ID as either a Pulfa or Voyager ID" do
+  describe "gets a noid" do
 
-  # end
+    it "that conforms to a valid pattern" do
+      expect { subject.save }.to_not raise_error
+      noid_service = ActiveFedora::Noid::Service.new
+      expect(noid_service.valid? subject.id).to be_truthy 
+    end
+  end
+
 end

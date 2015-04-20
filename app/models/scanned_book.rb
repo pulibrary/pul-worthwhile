@@ -1,9 +1,13 @@
 # Generated via
 #  `rails generate worthwhile:work ScannedBook`
+
+require 'active_fedora/noid'
+
 class ScannedBook < ActiveFedora::Base
   include ::CurationConcern::Work
   include Sufia::GenericFile::Metadata
   include PulMetadataServices::ExternalMetadataSource
+  include ::NoidBehaviors
 
   property :portion_note, predicate: ::RDF::URI.new(::RDF::DC.description), multiple: false
   property :description, predicate: ::RDF::URI.new(::RDF::DC.abstract), multiple: false
@@ -82,6 +86,16 @@ class ScannedBook < ActiveFedora::Base
   # http://stackoverflow.com/questions/1235863/test-if-a-string-is-basically-an-integer-in-quotes-using-ruby
   def is_bibdata?
     /\A[-+]?\d+\z/ === self.source_metadata_id
+  end
+
+  def assign_id
+    noid_service.mint
+  end
+
+  private
+
+  def noid_service
+    @noid_service ||= ActiveFedora::Noid::Service.new
   end
 
 end
