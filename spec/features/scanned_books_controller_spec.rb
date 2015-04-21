@@ -6,7 +6,7 @@ RSpec.feature "ScannedBooksController", type: :feature do
   let(:scanned_book) { FactoryGirl.create(:scanned_book) }
 
   before(:each) do 
-    login_as(user, :scope => :user)
+    sign_in user
   end
 
   scenario "Logged in user can follow link to edit scanned book" do
@@ -14,7 +14,6 @@ RSpec.feature "ScannedBooksController", type: :feature do
     # TODO: User can see button to edit, but
     #   is not authorized to edit on the next screen.
     visit polymorphic_path [:curation_concern, scanned_book]
-    login_as(user, :scope => :user)
     click_link 'Edit This Scanned Book'
     expect(page).to have_text("")
   end
@@ -27,7 +26,6 @@ RSpec.feature "ScannedBooksController", type: :feature do
 
     # TODO: User can make an edit and click save button, but
     #   is not authorized to view item afterwards without logging in again.
-    login_as(user, :scope => :user)
     click_button 'Update Scanned book'
     expect(page).to have_text("")
   end
