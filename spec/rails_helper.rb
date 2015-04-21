@@ -53,9 +53,14 @@ RSpec.configure do |config|
   config.include Capybara::DSL
   config.include Devise::TestHelpers, type: :controller
   config.include Devise::TestHelpers, type: :view
-  config.include Warden::Test::Helpers
-  config.before :suite do
+  config.include Warden::Test::Helpers, type: :feature
+  
+  config.before(:each, type: :feature) do
     Warden.test_mode!
+  end
+
+  config.after(:each, type: :feature) do
+    Warden.test_reset!
   end
 end
 
