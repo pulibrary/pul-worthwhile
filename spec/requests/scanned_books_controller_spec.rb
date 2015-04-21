@@ -3,9 +3,10 @@ require 'rails_helper'
 RSpec.describe "ScannedBooksController", type: :request do
 
   let(:user) { FactoryGirl.create(:user) }
+  let(:scanned_book) { FactoryGirl.create(:scanned_book) }
 
   before do
-    login user
+    login_as(user, :scope => :user)
   end
   
   it "User creates a new scanned book" do
@@ -29,16 +30,15 @@ RSpec.describe "ScannedBooksController", type: :request do
   end
 
   it "User edits a scanned book" do
-
     new_params = {
       title: ["New Title"],
       source_metadata_identifier: "1234567",
       access_policy: "new policy", 
       use_and_reproduction: "new use"
     }
-    polymorphic_path [:curation_concern, scanned_book]
-
-    post "/concern/scanned_books", id: scanned_book.id, scanned_book: new_params
-    follow_redirect!
+    get polymorphic_path [:curation_concern, scanned_book]
+    byebug
+    # post "/concern/scanned_books", id: scanned_book.id, scanned_book: new_params
+    # follow_redirect!
   end
 end
