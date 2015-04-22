@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.feature "ScannedBooksController", type: :feature do
 
-  let(:user) { FactoryGirl.create(:admin) }
-  let(:scanned_book) { FactoryGirl.create(:scanned_book) }
+  let(:user) { FactoryGirl.create(:scanned_book_creator) }
+  let(:scanned_book) { FactoryGirl.create(:scanned_book) }#, user: user) }
 
   before(:each) do
     sign_in user
