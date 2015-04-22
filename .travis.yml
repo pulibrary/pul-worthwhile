@@ -1,0 +1,23 @@
+language: ruby
+sudo: required
+rvm:
+  - "2.2.1"
+before_script:
+  - bundle exec rake db:reset
+  - bundle exec rake
+branches:
+  only:
+    - master
+    - development
+services:
+  - redis-server
+notifications:
+  email:
+    recipients:
+      - "eliotj@princeton.edu"
+      - "jstroop@princeton.edu"
+      - "kr2@princeton.edu"
+    on_success: "change"
+    on_failure: "always"
+    template:
+      - "%{repository}//%{branch}@%{commit} by %{author}: %{message} - %{build_url}"
