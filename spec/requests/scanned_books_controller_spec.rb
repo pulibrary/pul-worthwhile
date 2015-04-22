@@ -7,6 +7,14 @@ RSpec.describe "ScannedBooksController", type: :request do
 
   before do
     login user
+    stubbed_requests = Faraday::Adapter::Test::Stubs.new do |stub|
+      response_body = fixture('voyager-2028405.xml').read
+      stub.get('/123456') { |env| [200, {}, response_body] }
+    end
+    stubbed_connection = Faraday.new do |builder|
+      builder.adapter :test, stubbed_requests
+    end
+    allow(Faraday).to receive(:new).with(:url => 'http://bibdata.princeton.edu/bibliographic/').and_return(stubbed_connection)
   end
   
   it "User creates a new scanned book" do
