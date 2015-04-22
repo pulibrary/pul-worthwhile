@@ -1,3 +1,5 @@
+{<img alt='Travis Status' src='https://travis-ci.org/pulibrary/pul-worthwhile.svg?branch=development' />}[https://travis-ci.org/pulibrary/pul-worthwhile]
+
 {<img alt='Stories in Ready' src='https://badge.waffle.io/pulibrary/pul-worthwhile.png?label=ready&title=Ready' />}[https://waffle.io/pulibrary/pul-worthwhile]
 == README
 
