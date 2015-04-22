@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   blacklight_for :catalog
   devise_for :users
   mount Hydra::Collections::Engine => '/'
+  mount Hydra::RoleManagement::Engine => '/'
   mount Worthwhile::Engine, at: '/'
   worthwhile_collections
   worthwhile_curation_concerns

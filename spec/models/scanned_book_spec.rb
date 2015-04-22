@@ -6,7 +6,7 @@ describe ScannedBook do
 
   let(:subject) {
     s = ScannedBook.new
-    s.source_metadata_id  = "12345"
+    s.source_metadata_identifier  = "12345"
     s.access_policy = "Policy"
     s.use_and_reproduction = "Statement"
     s
@@ -28,14 +28,14 @@ describe ScannedBook do
   describe 'has source metadata id' do
     it "should let me set a metadata id" do
       id = "12345"
-      subject.source_metadata_id = id
+      subject.source_metadata_identifier = id
       expect { subject.save }.to_not raise_error
       subject.reload
-      expect(subject.source_metadata_id).to eq id
+      expect(subject.source_metadata_identifier).to eq id
     end
 
     it "should require me to set a metadata id" do
-      subject.source_metadata_id = nil
+      subject.source_metadata_identifier = nil
       expect(subject.valid?).to be_falsey
     end
   end
@@ -81,9 +81,8 @@ describe ScannedBook do
       stubbed_connection = Faraday.new do |builder|
         builder.adapter :test, stubbed_requests
       end
-
       allow(subject).to receive(:pulfa_connection).and_return(stubbed_connection)
-      subject.source_metadata_id = 'AC123_c00004'
+      subject.source_metadata_identifier = 'AC123_c00004'
     end
 
 
@@ -125,7 +124,7 @@ describe ScannedBook do
         builder.adapter :test, stubbed_requests
       end
       allow(subject).to receive(:bibdata_connection).and_return(stubbed_connection)
-      subject.source_metadata_id = "2028405"
+      subject.source_metadata_identifier = "2028405"
     end
 
     it "Gets data from Voyager" do
@@ -136,7 +135,7 @@ describe ScannedBook do
     ### This is likely too specific of an error to catch in MARC and
     ## probably not the right place to locate this sort of test.
     it "Fails when an ID with malformed xml is requested" do
-      subject.source_metadata_id = "123456"
+      subject.source_metadata_identifier = "123456"
       expect(subject.bibdata_connection).to receive(:get).with('123456').and_return(double(:body => fixture('voyager-baddata-123456.xml').read))
       subject.apply_external_metadata
       # should this accept all errors or only encoding?
