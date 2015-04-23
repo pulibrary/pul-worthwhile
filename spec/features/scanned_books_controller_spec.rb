@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.feature "ScannedBooksController", type: :feature do
 
   let(:user) { FactoryGirl.create(:scanned_book_creator) }
-  let(:scanned_book) { FactoryGirl.create(:scanned_book) }#, user: user) }
+  let(:scanned_book) { FactoryGirl.create(:scanned_book, user: user) }
 
   before(:each) do
     sign_in user
@@ -22,5 +22,26 @@ RSpec.feature "ScannedBooksController", type: :feature do
     fill_in 'scanned_book_description', with: 'new description'
     click_button 'Update Scanned book'
     expect(page).to have_text("Test title (Scanned Book)")
+  end
+
+  scenario "User can add a new file" do
+
+    # stub out characterization. Travis doesn't have fits installed, and it's not relevant to the test.
+    s2 = double('resque message')
+    expect(CharacterizeJob).to receive(:new).and_return(s2)
+    expect(Sufia.queue).to receive(:push).with(s2).once
+
+    visit polymorphic_path [:curation_concern, scanned_book]
+    click_link 'Attach a File'
+
+    within("form.new_generic_file") do
+      fill_in("Title", with: 'image.png')
+      attach_file("Upload a file", File.join(Rails.root, 'spec/fixtures/files/image.png'))
+      click_on("Attach to Scanned Book")
+    end
+
+    within '.related_files' do
+      expect(page).to have_link "image.png"
+    end
   end
 end
