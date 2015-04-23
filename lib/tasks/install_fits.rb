@@ -2,11 +2,11 @@ require 'open-uri'
 require 'zip'
 require 'fileutils'
 
-PUL_DAM_CONFIG = YAML.load_file(Rails.root.join('config', 'pul_dam.yml'))
+# PUL_DAM_CONFIG = YAML.load_file(Rails.root.join('config', 'pul_dam.yml'))
 
-final_dir = Rails.root.join(PUL_DAM_CONFIG['fits_dir'])
+final_dir = Rails.root.join(PulWorthwhile418::Application::PUL_DAM_CONFIG['fits_dir'])
 
-open(PUL_DAM_CONFIG['fits_download'], 'rb') do |tmp|
+open(PulWorthwhile418::Application::PUL_DAM_CONFIG['fits_download'], 'rb') do |tmp|
   Zip::File.open(tmp.path) do |zipfile|
     unzip_root = nil
     zipfile.each do |e| # e is a Zip::Entry

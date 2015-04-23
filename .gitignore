@@ -17,5 +17,10 @@
 /tmp
 noid-minter-state
 
+# Ignore configs
+pul_dam.yml
+
 /jetty
 /fits
+
+.DS_Store

@@ -186,6 +186,7 @@ GEM
     erubis (2.7.0)
     execjs (2.5.2)
     extlib (0.9.16)
+    ezid-client (1.1.1)
     factory_girl (4.5.0)
       activesupport (>= 3.0.0)
     factory_girl_rails (4.5.0)
@@ -549,6 +550,7 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   devise
   devise-guests (~> 0.3)
+  ezid-client
   factory_girl_rails
   hydra-head!
   hydra-role-management (= 0.1.0)
@@ -557,6 +559,7 @@ DEPENDENCIES
   jquery-rails
   pul_metadata_services!
   rails (= 4.1.8)
+  rdf-vocab
   rsolr (~> 1.0.6)
   rspec-rails
   sass-rails (~> 4.0.3)

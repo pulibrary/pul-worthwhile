@@ -20,6 +20,5 @@ module CurationConcern
     def update_metadata
       curation_concern.apply_external_metadata
     end
-
   end
 end

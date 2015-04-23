@@ -13,6 +13,7 @@ module PulWorthwhile418
       g.test_framework :rspec, :spec => true
     end
 
+    PUL_DAM_CONFIG = YAML.load_file(Rails.root.join('config', 'pul_dam.yml'))
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers

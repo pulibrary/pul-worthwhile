@@ -8,6 +8,7 @@ class ScannedBook < ActiveFedora::Base
   include Sufia::GenericFile::Metadata
   include PulMetadataServices::ExternalMetadataSource
   include ::NoidBehaviors
+  include ::ArkIdentifiers
 
   property :portion_note, predicate: ::RDF::URI.new(::RDF::DC.description), multiple: false
   property :description, predicate: ::RDF::URI.new(::RDF::DC.abstract), multiple: false
@@ -19,7 +20,6 @@ class ScannedBook < ActiveFedora::Base
   validates_presence_of :source_metadata_identifier,  message: 'You must provide a source metadata id.'
   validates_presence_of :access_policy,  message: 'You must choose an Access Policy statement.'
   validates_presence_of :use_and_reproduction,  message: 'You must provide a use statement.'
-
 
   # Retrieves EAD recrord from pulfa
   #  * stores the full EAD record in source_metadata
