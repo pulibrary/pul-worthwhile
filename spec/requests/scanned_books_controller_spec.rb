@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "ScannedBooksController", type: :request do
 
-  let(:user) { FactoryGirl.create(:user) }
+  let(:user) { FactoryGirl.create(:scanned_book_creator) }
   let(:scanned_book) { FactoryGirl.create(:scanned_book) }
 
   before do
@@ -19,7 +19,9 @@ RSpec.describe "ScannedBooksController", type: :request do
 
   it "User creates a new scanned book" do
     get "/concern/scanned_books/new"
+
     expect(response).to render_template('curation_concern/scanned_books/new')
+
     valid_params = {
       title: ["My Book"],
       source_metadata_identifier: "2028405",
