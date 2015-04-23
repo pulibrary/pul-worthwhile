@@ -12,5 +12,4 @@ module NoidBehaviors
   def noid_service
     @noid_service ||= ActiveFedora::Noid::Service.new
   end
-
 end
