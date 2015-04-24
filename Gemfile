@@ -34,6 +34,8 @@ gem 'spring',        group: :development
 
 gem 'hydra-role-management', '0.1.0'
 
+gem "bower-rails", "~> 0.9.2"
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -63,4 +65,5 @@ end
 
 group :test do
   gem "capybara"
+  gem "poltergeist"
 end
