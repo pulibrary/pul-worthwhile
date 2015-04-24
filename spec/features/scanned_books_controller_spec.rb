@@ -23,4 +23,13 @@ RSpec.feature "ScannedBooksController", type: :feature do
     click_button 'Update Scanned book'
     expect(page).to have_text("Test title (Scanned Book)")
   end
+
+  # scenario "User can create a preview metadata for an ID", js: true do
+  #   visit edit_polymorphic_path [:curation_concern, scanned_book]
+  #   fill_in 'scanned_book_source_metadata_identifier', with: '1234568'
+  #   fill_in 'scanned_book_portion_note', with: 'new portion note'
+  #   fill_in 'scanned_book_description', with: 'new description'
+  #   expect(page).to have_css('p.alert')
+  #   expect(page).to have_text("Is this the record you want?")
+  # end
 end
