@@ -21,7 +21,7 @@ Blacklight.onLoad(function(){
     This plugin :
       - verifies the id supplied fits a PUL pattern
       - fetches a copy of the external metadata for the ID
-      - if the id is not found user is warned
+      - if the id is not found the user is warned
       - parses the response and provides a preview of the metadata
       - to the operator for review. 
   */
@@ -44,7 +44,8 @@ Blacklight.onLoad(function(){
         this.fetchMetadata(this.element, this.options);
       },
 
-      // fire this after a 1 second delay on typing in the field 
+      // fire this after a 1 second delay on typing in the field
+      // use underscore.js _.debounce method 
       fetchMetadata: function(el, options) {
         $(el).keypress( _.debounce(function () {
           var id = $(el).val();
@@ -64,14 +65,20 @@ Blacklight.onLoad(function(){
               $("div.flash_messages").html(alert);
               return;
             }
-            var heading = options.confirm_msg + '<br/>';
-            var field_list = "<ul>";
-            _.each(data.fields, function(value, key) {
-              field_list = field_list + "<li>" + key + ":" + value + "</li>";  
-            });
-            var field_list = field_list + "</ul>";
-            var alert = "<p class='alert " + alert_label + "'>" + heading + id + data.source + field_list + close_alert + "</p>";
-            $("div.flash_messages").html(alert);
+            // using mustache template for now
+            data['heading'] = options.confirm_msg;
+            data['alert'] = alert_label; 
+            var template = "<div class='alert {{alert}}'>{{heading}} \
+                            {{id}} \
+                            <ul>\
+                            {{#fields}} \
+                              <li>title: {{title}}</li> \
+                              <li>publisher: {{publisher}}</li> \
+                            {{/fields}} \
+                            </ul>"
+            template = template + close_alert + "</div>";              
+            var html = Mustache.to_html(template, data);
+            $("div.flash_messages").html(html);
           });
         }, 1000));
       }
