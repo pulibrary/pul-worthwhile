@@ -20,3 +20,4 @@ noid-minter-state
 /jetty
 /fits
 config/database.yml
+config/secrets.yml
