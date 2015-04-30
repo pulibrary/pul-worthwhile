@@ -13,7 +13,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer',  platforms: :ruby
-gem 'pul_metadata_services', github:'pulibrary/pul_metadata_services'
+gem 'pul_metadata_services', github:'pulibrary/pul_metadata_services', :branch => 'rails_4_1_8'
 
 gem 'hydra-head', github:"projecthydra/hydra-head", :tag => 'v9.0.0.rc2'
 gem 'active-fedora', github:"projecthydra/active_fedora", :tag => 'v9.0.0.rc2'
@@ -56,6 +56,11 @@ gem "devise-guests", "~> 0.3"
 # from https://github.com/projecthydra-labs/active_fedora-noid
 gem 'active_fedora-noid'
 
+gem 'capistrano'
+gem 'capistrano-rails'
+gem 'capistrano-bundler'
+gem 'capistrano-passenger'
+
 group :development, :test do
   gem "rspec-rails"
   gem "jettywrapper"
@@ -66,4 +71,6 @@ end
 group :test do
   gem "capybara"
   gem "poltergeist"
+  gem 'vcr', '~> 2.9.3'
+  gem 'webmock'
 end
