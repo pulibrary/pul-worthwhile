@@ -328,7 +328,7 @@ GEM
     multi_json (1.11.0)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
-    mysql (2.9.1)
+    mysql2 (0.3.18)
     nest (1.1.2)
       redis
     net-http-persistent (2.9.4)
@@ -600,7 +600,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jettywrapper
   jquery-rails
-  mysql
+  mysql2
   poltergeist
   pul_metadata_services!
   rails (= 4.1.8)

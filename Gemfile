@@ -19,7 +19,7 @@ gem 'hydra-head', github:"projecthydra/hydra-head", :tag => 'v9.0.0.rc2'
 gem 'active-fedora', github:"projecthydra/active_fedora", :tag => 'v9.0.0.rc2'
 gem 'worthwhile', github:'projecthydra-labs/worthwhile', ref:'92221695093474702c05699a36373f576d31f8bb'
 
-gem 'mysql'
+gem 'mysql2'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
