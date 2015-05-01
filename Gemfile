@@ -19,6 +19,7 @@ gem 'hydra-head', github:"projecthydra/hydra-head", :tag => 'v9.0.0.rc2'
 gem 'active-fedora', github:"projecthydra/active_fedora", :tag => 'v9.0.0.rc2'
 gem 'worthwhile', github:'projecthydra-labs/worthwhile', ref:'92221695093474702c05699a36373f576d31f8bb'
 
+gem 'mysql'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
@@ -34,6 +35,7 @@ gem 'spring',        group: :development
 
 gem 'hydra-role-management', '0.1.0'
 
+#gem 'mysql'
 gem "bower-rails", "~> 0.9.2"
 
 # Use ActiveModel has_secure_password
@@ -71,6 +73,6 @@ end
 group :test do
   gem "capybara"
   gem "poltergeist"
-  gem 'vcr', '~> 2.9.3'
-  gem 'webmock'
+  #gem 'vcr', '~> 2.9.3'
+  #gem 'webmock'
 end
