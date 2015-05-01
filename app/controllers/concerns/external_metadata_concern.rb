@@ -1,5 +1,5 @@
-module ExternalMetadataHelper
-  include PulMetadataServices::ExternalMetadataSource
+module ExternalMetadataConcern
+  include PulMetadataServices
 
   def get_preview(id)
     if is_bibdata?(id)

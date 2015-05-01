@@ -2,11 +2,14 @@
 #  `rails generate worthwhile:work ScannedBook`
 
 require 'active_fedora/noid'
+#require 'marc'
+require 'pul_metadata_services'
+require 'pul_metadata_services/pulfa_record'
 
 class ScannedBook < ActiveFedora::Base
   include ::CurationConcern::Work
   include Sufia::GenericFile::Metadata
-  include PulMetadataServices::ExternalMetadataSource
+  include ::PulMetadataServices
   include ::NoidBehaviors
 
   property :portion_note, predicate: ::RDF::URI.new(::RDF::DC.description), multiple: false
@@ -25,36 +28,34 @@ class ScannedBook < ActiveFedora::Base
   #  * stores the full EAD record in source_metadata
   #  * extracts title, creator, date, and publisher from the EAD and sets those fields accordingly
   def apply_pulfa_data
-    ead_source = retrieve_from_pulfa
-    self.source_metadata = ead_source
-    ead_record = ScannedBook.negotiate_ead(ead_source)
-    self.title = ScannedBook.title_from_ead(ead_record)
-    self.creator = ScannedBook.creator_from_ead(ead_record)
-    self.date_created = ScannedBook.date_from_ead(ead_record)
-    self.publisher = ScannedBook.publisher_from_ead(ead_record)
+    self.source_metadata = retrieve_from_pulfa(source_metadata_identifier)
+    ead_record = PulMetadataServices::PulfaRecord.new(self.source_metadata)
+    self.title = [ead_record.component_title]
+    self.creator = ead_record.component_creators
+    self.date_created = [ead_record.component_date]
+    self.publisher = ead_record.collection_creators
   end
 
-  # Retrieves MARC recrord from bibdata service
+  # Retrieves MARC record from bibdata service
   #  * stores the full MARC record in source_metadata
   #  * extracts title, creator, date, and publisher from the MARC and sets those fields accordingly
   def apply_bibdata
-    marc_source = retrieve_from_bibdata
+    # retrieve_from_bibdata from pul_metadata_services
+    # marc record object also is extended by pul_metadata_services
+    # with convience methods for title, creator, etc.
+    marc_source = retrieve_from_bibdata(source_metadata_identifier)
+    #FIXME - review this exception handler
     begin
       self.source_metadata = marc_source
     rescue => e
       logger.error("Record ID #{self.source_metadata_identifier} is malformed. Error:")
       logger.error("#{e.class}: #{e.message}")
     end
-    marc_record = ScannedBook.negotiate_record(marc_source)
-    self.title = ScannedBook.title_from_marc(marc_record)
-    self.creator = ScannedBook.creator_from_marc(marc_record)
-    self.date_created = [ScannedBook.date_from_marc(marc_record)]
-    self.publisher = ScannedBook.publisher_from_marc(marc_record)
-  end
-
-  def retrieve_from_pulfa
-    response = pulfa_connection.get(source_metadata_identifier.gsub('_','/')+".xml?scope=record" )
-    response.body
+    marc_record = MARC::XMLReader.new(StringIO.new(marc_source)).first #ScannedBook.negotiate_record(marc_source)
+    self.title = marc_record.title
+    self.creator = marc_record.creator
+    self.date_created = [marc_record.date]
+    self.publisher = marc_record.publisher
   end
 
   def pulfa_connection
@@ -65,21 +66,15 @@ class ScannedBook < ActiveFedora::Base
     Faraday.new(:url => 'http://bibdata.princeton.edu/bibliographic/')
   end
 
-  def retrieve_from_bibdata
-    response = bibdata_connection.get(source_metadata_identifier)
-    logger.info("Fetching #{source_metadata_identifier}")
-    response.body
-  end
-
   def refresh_metadata
     apply_external_metadata
   end
 
   def apply_external_metadata
     if is_bibdata?
-      apply_bibdata
+      apply_bibdata()
     else
-      apply_pulfa_data
+      apply_pulfa_data()
     end
   end
 

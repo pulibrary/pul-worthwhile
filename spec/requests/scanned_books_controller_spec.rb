@@ -1,6 +1,12 @@
 require 'rails_helper'
 
-RSpec.describe "ScannedBooksController", type: :request do
+# vcr_options = {
+#   record: :new_episodes, # See https://www.relishapp.com/vcr/vcr/v/1-6-0/docs/record-modes
+#   serialize_with: :json
+# }
+
+
+RSpec.describe "ScannedBooksController", type: :request, vcr: vcr_options do
 
   let(:user) { FactoryGirl.create(:user) }
   let(:scanned_book) { FactoryGirl.create(:scanned_book) }
@@ -27,7 +33,9 @@ RSpec.describe "ScannedBooksController", type: :request do
       use_and_reproduction: "something else"
     }
 
+    #VCR.use_cassette('good_bib_record') do
     post "/concern/scanned_books", scanned_book: valid_params
+    #end
 
     expect(response).to redirect_to([:curation_concern, assigns(:curation_concern)])
     follow_redirect!

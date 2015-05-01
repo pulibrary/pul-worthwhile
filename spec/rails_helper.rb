@@ -6,11 +6,26 @@ require 'rspec/rails'
 require 'capybara/rspec'
 require 'capybara/rails'
 require 'capybara/poltergeist'
+#require 'vcr'
 
 Capybara.register_driver :poltergeist do |app|
   Capybara::Poltergeist::Driver.new(app, {timeout: 60})
 end
 Capybara.javascript_driver = :poltergeist
+
+# VCR.configure do |c|
+#   c.ignore_hosts '127.0.0.1', 'localhost'
+#   c.cassette_library_dir = 'spec/fixtures/vcr_cassettes'
+#   c.hook_into :webmock
+#   c.hook_into :faraday
+#   c.configure_rspec_metadata!
+#   allow_http_connections_when_no_cassette = true
+#   c.preserve_exact_body_bytes do |http_message|
+#     http_message.body.encoding.name == 'ASCII-8BIT' ||
+#     !http_message.body.valid_encoding?
+#   end
+# end
+
 
 # Add additional requires below this line. Rails is not loaded until this point!
 

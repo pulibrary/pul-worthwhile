@@ -1,5 +1,5 @@
 class ExternalMetadataController < ApplicationController
-  include ExternalMetadataHelper
+  include ExternalMetadataConcern
 
   def show
     respond_to do |format|
